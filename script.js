@@ -138,31 +138,29 @@ function startGame() {
 
 let startx, starty, endx, endy;
 
-canvas.addEventListener("touchmove", function (event) {
+canvas.addEventListener("touchstart", function (event) {
   startx = event.touches[0].clientX;
   starty = event.touches[0].clientY;
 });
 
-canvas.addEventListener("touchmove", function (event) {
-  endx = event.touches[0].clientX;
-  endy = event.touches[0].clientY;
-});
-
-canvas.addEventListener("touchend", function () {
+canvas.addEventListener("touchend", function (event) {
+  endx = event.changedTouches[0].clientX;
+  endy = event.changedTouches[0].clientY;
+  
   let deltax = endx - startx;
   let deltay = endy - starty;
 
   if (Math.abs(deltax) > Math.abs(deltay)) {
     if (deltax > 0 && direction.x === 0) {
-      direction = { x: 20, y: 0 };
+      newDirection = { x: 20, y: 0 };
     } else if (deltax < 0 && direction.x === 0) {
-      direction = { x: -20, y: 0 };
+      newDirection = { x: -20, y: 0 };
     }
   } else {
     if (deltay > 0 && direction.y === 0) {
-      direction = { x: 0, y: 20 };
+      newDirection = { x: 0, y: 20 };
     } else if (deltay < 0 && direction.y === 0) {
-      direction = { x: 0, y: -20 };
+      newDirection = { x: 0, y: -20 };
     }
   }
 });
